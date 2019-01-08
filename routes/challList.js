@@ -13,16 +13,12 @@ router.post('/submit/:id',isLoggedIn,async (req,res,next) => {
             correct_flag = result.dataValues;
         })
         if(correct_flag['flag'] === flag){
-            return res.render('chall',{
-                user: req.user,
-                correct: 1,
-            });
+            req.flash('judge','Correct!');
+            return res.redirect('/chall');
         }
         else{
-            return res.render('chall',{
-                user: req.user,
-                incorrect: 1,
-            });
+            req.flash('judge','Incorrect!');
+            return res.redirect('/chall');
         }
     } catch(error){
         console.error(error);
