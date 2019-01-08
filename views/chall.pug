@@ -2,7 +2,12 @@ extends layout
 
 block content
     .challs
-        a Chall1
-            form.submit-flag(action='/chall/submit/1' method='post')
-                input(type='text' name='flag' placeholder='FLAG{...}')
-                button.submit-btn(type='submit') Submit
+        if correct
+            h1 correct!
+        else if incorrect
+            h1 incorrect!
+        else
+            a Chall1
+                form.submit-flag(action='/chall/submit/1' method='post')
+                    input(type='text' name='flag' placeholder='FLAG{...}')
+                    button.submit-btn(type='submit') Submit
