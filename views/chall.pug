@@ -1,11 +1,11 @@
 extends layout
-
 block content
-    .challs
-        for chall in challs
-            a Chall#{chall.id}
-                form.submit-flag(action='/chall/submit/'+chall.id method='post')
-                    input(type='text' name='flag' placeholder='FLAG{...}')
-                    button.submit-btn(type='submit') Submit
-                if judge
-                    .message=judge
+    .chall
+        div.desc !{desc}
+        form.submit-flag(action='/chall/'+id+'/submit' method='post')
+            input(type='text' name='flag' placeholder='FLAG{...}')
+            button.submit-btn(type='submit') Submit
+        if correct==id
+            p Great!!
+        if incorrect==id
+            p WrongFlag...

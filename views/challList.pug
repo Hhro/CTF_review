@@ -1,0 +1,6 @@
+extends layout
+
+block content
+    .challs
+        for id in ids
+            a(href='/chall/'+id) Chall#{id}

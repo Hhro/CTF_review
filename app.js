@@ -12,7 +12,7 @@ const passportConfig = require('./passport');
 
 const pageRouter = require('./routes/page')
 const authRouter = require('./routes/auth');
-const challRouter = require('./routes/challList')
+const challRouter = require('./routes/chall')
 
 const app = express();
 sequelize.sync();

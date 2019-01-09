@@ -4,7 +4,7 @@ const {Chall} = require('../models');
 
 const router = express.Router();
 
-router.post('/submit/:id',isLoggedIn,async (req,res,next) => {
+router.post('/:id/submit',isLoggedIn, async (req,res,next) => {
     const {id} = req.params;
     const {flag} = req.body;
     try{
@@ -13,12 +13,12 @@ router.post('/submit/:id',isLoggedIn,async (req,res,next) => {
             correct_flag = result.dataValues;
         })
         if(correct_flag['flag'] === flag){
-            req.flash('judge','Correct!');
-            return res.redirect('/chall');
+            req.flash('correct', id);
+            return res.redirect('/chall/'+id);
         }
         else{
-            req.flash('judge','Incorrect!');
-            return res.redirect('/chall');
+            req.flash('incorrect', id);
+            return res.redirect('/chall/'+id);
         }
     } catch(error){
         console.error(error);
