@@ -8,7 +8,7 @@ const router = express.Router();
 const converter = new showdown.Converter();
 
 router.get('/chall',isLoggedIn, (req,res) => {
-    fs.readdir('public/challs', (err,ids) => {
+    fs.readdir('challs', (err,ids) => {
         res.render('challList', {
             title: 'CTF_review',
             user: req.user,
@@ -19,7 +19,7 @@ router.get('/chall',isLoggedIn, (req,res) => {
 
 router.get('/chall/:id', (req,res) => {
     const {id} = req.params;
-    fs.readFile('public/challs/'+id+'/desc.md', "utf8",(err,md) => {
+    fs.readFile('challs/'+id+'/desc.md', "utf8",(err,md) => {
         let html = converter.makeHtml(md);
         res.render('chall', {
             title: 'CTF_review',
