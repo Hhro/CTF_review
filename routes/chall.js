@@ -1,4 +1,5 @@
 const express = require('express');
+const sequelize = require('sequelize');
 const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
 const {Chall} = require('../models');
 
@@ -13,6 +14,7 @@ router.post('/:id/submit',isLoggedIn, async (req,res,next) => {
             correct_flag = result.dataValues;
         })
         if(correct_flag['flag'] === flag){
+            Chall.update({solves: sequelize.literal('solves+1')}, {where: {id: parseInt(id)}});
             req.flash('correct', id);
             return res.redirect('/chall/'+id);
         }

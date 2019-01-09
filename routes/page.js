@@ -3,16 +3,18 @@ const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
 const {Chall} = require('../models');
 const showdown = require('showdown');
 const fs = require('fs');
+const {idsToMeta} = require('../utils/query');
 
 const router = express.Router();
 const converter = new showdown.Converter();
 
 router.get('/chall',isLoggedIn, (req,res) => {
-    fs.readdir('challs', (err,ids) => {
+    fs.readdir('challs', async (err,ids) => {
+        metas=await idsToMeta(ids);
         res.render('challList', {
             title: 'CTF_review',
             user: req.user,
-            ids: ids,
+            metas: metas,
         })
     })
 })

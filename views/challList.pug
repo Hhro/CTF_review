@@ -2,5 +2,16 @@ extends layout
 
 block content
     .challs
-        for id in ids
-            a(href='/chall/'+id) Chall#{id}
+        table
+            thead
+                tr 
+                    th ID
+                    th Title
+                    th Solves
+            tbody
+                 for meta in metas
+                    tr
+                        td.id #{meta.id}
+                        td.title
+                            a(href='/chall/'+meta.id) #{meta.title}
+                        td.solves #{meta.solves}
