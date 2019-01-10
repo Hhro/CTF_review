@@ -40,6 +40,10 @@ a:hover{
     margin-left: auto;
 }
 
+.meta{
+    font-size: 20px;
+}
+
 footer{
     transform: translateX(-50%);
     position: absolute;

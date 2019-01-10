@@ -11,7 +11,7 @@ block content
             tbody
                  for meta in metas
                     tr
-                        td.id #{meta.id}
-                        td.title
+                        td.meta #{meta.id}
+                        td.meta
                             a(href='/chall/'+meta.id) #{meta.title}
-                        td.solves #{meta.solves}
+                        td.meta #{meta.solves}
