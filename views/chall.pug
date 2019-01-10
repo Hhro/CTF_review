@@ -5,7 +5,7 @@ block content
         form.submit-flag(action='/chall/'+id+'/submit' method='post')
             input(type='text' name='flag' placeholder='FLAG{...}')
             button.submit-btn(type='submit') Submit
-        if correct==id
-            p Great!!
-        if incorrect==id
-            p WrongFlag...
+        if correct
+            p=correct
+        if incorrect
+            p=incorrect
