@@ -1,0 +1,51 @@
+html{
+    font-family: '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif' !important;
+}
+
+a{
+    color:black !important;
+    text-decoration: none !important;
+}
+
+a:hover{
+    color: grey !important;
+}
+
+.home{
+    transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+}
+
+.chall-table{
+    width: 100%;
+}
+
+.ID, .title, .solves{
+    font-size: 18px;
+}
+
+.navbar-left, .navbar-right{
+    height: 50px;
+    padding: 15px 15px;
+}
+
+.container{
+    width: 750px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+footer{
+    transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 12px;
+}

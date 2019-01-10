@@ -5,29 +5,24 @@ html
         title=title
         meta(name='viewport' content='width=device-width, user-scalable=no')
         meta(http-equiv='X-UA-Compatible' content='IE=edge')
-        link(rel='stylesheet' href='/main.css')
+        link(rel="stylesheet" href="/main.css")
+        link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+        link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css")
     body
-        .container
-            .profile-wrap
-                .profile
+        .navbar
+            .container
+                .navbar-header
+                    a.home(href='/') CTF_review
+                .navbar-left
+                    a#chall.btn(href='/chall') Chall
+                .navbar-right
                     if user && user.id
-                        .user-name= 'Hello ' +user.nick
-                        .half
-                        a#chall.btn(href='/chall') Chall
                         a#logout.btn(href='/auth/logout') Logout
                     else
-                        form#login-form(action='/auth/login' method='post')
-                            .input-group
-                                label(for='email') Email
-                                input#email(type='email' name='email' required autofocus)
-                            .input-group
-                                label(for='password') Password
-                                input#password(type='password' name='password' required)
-                            if loginError
-                                .error-mesage= loginError
-                            a#join.btn(href='/join') Join
-                            button#login.btn(type='submit') Login
-                footer
-                    | Made by &nbsp;
-                    a(href='https://github.com/hhro' target = '_blank') hhro
-            block content
+                        a#join.btn(href='/join') Join
+                        a#login.btn(href='/login') Login
+        block content
+        footer
+            | Made by &nbsp;
+            a(href='https://github.com/hhro' target = '_blank') hhro
+        

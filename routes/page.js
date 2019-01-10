@@ -8,11 +8,15 @@ const {idsToMeta} = require('../utils/query');
 const router = express.Router();
 const converter = new showdown.Converter();
 
+router.get('/login',isNotLoggedIn, (req,res) => {
+    res.render('login', {title: 'CTF-review', user: req.user, loginError: req.flash('loginError')})
+})
+
 router.get('/chall',isLoggedIn, (req,res) => {
     fs.readdir('challs', async (err,ids) => {
         metas=await idsToMeta(ids);
         res.render('challList', {
-            title: 'CTF_review',
+            title: 'CTF-review',
             user: req.user,
             metas: metas,
         })
@@ -24,7 +28,7 @@ router.get('/chall/:id', (req,res) => {
     fs.readFile('challs/'+id+'/desc.md', "utf8",(err,md) => {
         let html = converter.makeHtml(md);
         res.render('chall', {
-            title: 'CTF_review',
+            title: 'CTF-review',
             user: req.user,
             correct: req.flash('correct'),
             incorrect: req.flash('incorrect'),
@@ -34,14 +38,13 @@ router.get('/chall/:id', (req,res) => {
     })
 })
 router.get('/join',isNotLoggedIn, (req,res) => {
-    res.render('join', {title: 'CTF_Review', user: req.user, joinError: req.flash('joinError')});
+    res.render('join', {title: 'CTF-Review', user: req.user, joinError: req.flash('joinError')});
 });
 
 router.get('/', (req,res,next) => {
     res.render('main', {
         title: 'CTF_Review',
         user: req.user,
-        loginError: req.flash('loginError'),
     });
 });
 

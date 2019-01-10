@@ -1,7 +1,7 @@
 extends layout
 block content
-    .chall
-        div.desc !{desc}
+    .container
+        div#desc !{desc}
         form.submit-flag(action='/chall/'+id+'/submit' method='post')
             input(type='text' name='flag' placeholder='FLAG{...}')
             button.submit-btn(type='submit') Submit

@@ -6,3 +6,5 @@
 - 스코어보드
 - CSS
 - 백엔드 프로그램(Challenge등록 쉽게하는 유틸 등...)
+- Solves기준 정렬기능
+- Writeup올리는 기능

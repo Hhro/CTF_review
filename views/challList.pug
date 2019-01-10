@@ -1,13 +1,13 @@
 extends layout
 
 block content
-    .challs
-        table
+    #chall-list.container
+        table.chall-table
             thead
-                tr 
-                    th ID
-                    th Title
-                    th Solves
+                tr
+                    th(style="width:10%; font-size: 18px") ID
+                    th(style="width:80%; font-size: 18px") Title
+                    th(style="width:10%; font-size: 18px") Solves
             tbody
                  for meta in metas
                     tr
