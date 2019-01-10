@@ -5,22 +5,24 @@ const passport = require('passport');
 const morgan = require('morgan');
 const session = require('express-session');
 const flash = require('connect-flash');
+const favicon = require('serve-favicon');
 require('dotenv').config();
 
 const {sequelize} = require('./models');
 const passportConfig = require('./passport');
+
+sequelize.sync();
+passportConfig(passport);
 
 const pageRouter = require('./routes/page')
 const authRouter = require('./routes/auth');
 const challRouter = require('./routes/chall')
 
 const app = express();
-sequelize.sync();
-passportConfig(passport);
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 
 app.set('views',path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
 app.set('port',process.env.PORT||8002);
 
 app.use(morgan('dev'));
