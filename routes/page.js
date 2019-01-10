@@ -12,7 +12,7 @@ router.get('/login',isNotLoggedIn, (req,res) => {
     res.render('login', {title: 'CTF-review', user: req.user, loginError: req.flash('loginError')})
 })
 
-router.get('/chall',isLoggedIn, (req,res) => {
+router.get('/chall', (req,res) => {
     fs.readdir('challs', async (err,ids) => {
         metas=await idsToMeta(ids);
         res.render('challList', {
