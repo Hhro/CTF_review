@@ -1,6 +1,10 @@
 extends layout
 
 block content
+    if category
+        p#category-banner.container=category
+    else
+        p#category-banner.container All Challenges
     #chall-list.container
         table.chall-table
             thead
@@ -9,9 +13,14 @@ block content
                     th(style="width:80%; font-size: 18px") Title
                     th(style="width:10%; font-size: 18px") Solves
             tbody
-                 for meta in metas
+                if !metas.length
                     tr
-                        td.meta #{meta.id}
-                        td.meta
-                            a(href='/chall/'+meta.id) #{meta.title}
-                        td.meta #{meta.solves}
+                        td
+                        td(style="font-size: 20px") No Problem Yet!!
+                else
+                    for meta in metas
+                        tr
+                            td.meta #{meta.id}
+                            td.meta
+                                a(href='/chall/'+meta.id) #{meta.title}
+                            td.meta #{meta.solves}

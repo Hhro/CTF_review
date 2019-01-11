@@ -6,6 +6,7 @@ html
         meta(name='viewport' content='width=device-width, user-scalable=no')
         meta(http-equiv='X-UA-Compatible' content='IE=edge')
         link(rel="stylesheet" href="/main.css")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto")
         link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
         link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css")
     body
@@ -16,6 +17,8 @@ html
                         img(src='/images/logo-via-logohub.png' height='30px')
                 .navbar-left
                     a#chall.btn(href='/chall') Chall
+                    a#pwn.btn(href='/pwn') Pwn
+                    a#rev.btn(href='/rev') Rev
                 .navbar-right
                     if user && user.id
                         a#logout.btn(href='/auth/logout') Logout

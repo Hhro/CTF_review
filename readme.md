@@ -1,15 +1,17 @@
 # TODO
 
 - ~~유저-솔브 테이블 만들고, 솔빙한 문제 더이상 플래그 제출 불가능하게 하는 기능~~
-
-- 이미 솔브한 문제에 대해서 'You already solved' 문구로 flag input대체하기
-- 카테고리-챌린지 테이블 만들고, 카테고리 분류 기능
+- ~~이미 솔브한 문제에 대해서 'You already solved' 문구로 flag input대체하기~~
+- ~~카테고리-챌린지 테이블 만들고, 카테고리 분류 기능~~
 - 태그-챌린지 테이블 만들고, 태그 분류 기능
 - 스코어보드
-- CSS
-- 백엔드 프로그램(Challenge등록 쉽게하는 유틸 등...)
+- CSS(ing)
+- Challenge를 DB랑 로컬에 일관성있게 업로드하는 유틸 제작
 - Solves기준 정렬기능
 - Writeup올리는 기능
+- flag bcrypt로 해시화해서 저장
+- 서버 시작할 때, local challege랑 DB 일관성 검사 => middleware/isChallengeExist DB트랜젝션을 로컬 디렉토리 탐색으로 대체
 
 #  CheckList
 - 플래그 빠르게 반복 제출시 Race condition 발생하는지 => flag제출 interval을 둬서 해결 가능할듯
+- attachment 주기적 무결성 검사

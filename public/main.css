@@ -1,5 +1,5 @@
-html{
-    font-family: '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif' !important;
+body{
+    font-family: 'Roboto', sans-serif !important;
 }
 
 a{
@@ -42,6 +42,18 @@ a:hover{
 
 .meta{
     font-size: 20px;
+}
+
+.solved{
+    font-size:15px;
+    font-weight: bold;
+}
+
+#category-banner{
+    text-transform: uppercase;
+    font-size:20px;
+    color: white;
+    background-color: black;
 }
 
 footer{

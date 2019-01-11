@@ -1,4 +1,4 @@
-const {isExistUC} = require('../utils/query');
+const {isExistUC, isExistC} = require('../utils/query');
 
 exports.isLoggedIn = (req,res,next) => {
     if(req.isAuthenticated()) {
@@ -24,5 +24,16 @@ exports.isNotSolved = async (req,res,next) => {
         next();
     }else{
         res.status(403).send('You already solve it')
+    }
+}
+
+/* check if challenge loaded in DB */
+exports.isChallengeExist = async (req,res,next) => {
+    const cid = parseInt(req.params.id);
+
+    if(await isExistC(cid)){
+        next();
+    }else{
+        res.status(403).send('Problem not exist');
     }
 }

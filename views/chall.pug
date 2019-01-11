@@ -1,10 +1,14 @@
 extends layout
 block content
     .container
-        div#desc !{desc}
-        form.submit-flag(action='/chall/'+id+'/submit' method='post')
-            input(type='text' name='flag' placeholder='FLAG{...}')
-            button.submit-btn(type='submit') Submit
+        #desc !{desc}
+        .submit
+            if solved
+                .solved you already solved it
+            else
+                form.submit-flag(action='/chall/'+cid+'/submit' method='post')
+                    input(type='text' name='flag' placeholder='FLAG{...}')
+                    button.submit-btn(type='submit') Submit
         if correct
             p=correct
         if incorrect

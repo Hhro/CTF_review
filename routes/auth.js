@@ -5,6 +5,7 @@ const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
 const {User} = require('../models');
 
 const router = express.Router();
+
 router.post('/join', isNotLoggedIn, async (req,res,next) => {
     const {email, nick, password} = req.body;
     try {
@@ -25,6 +26,7 @@ router.post('/join', isNotLoggedIn, async (req,res,next) => {
         return next(error);
     }
 });
+
 router.post('/login',isNotLoggedIn, (req,res,next) => {
     passport.authenticate('local', (authError, user, info) => {
         if(authError) {
@@ -43,7 +45,8 @@ router.post('/login',isNotLoggedIn, (req,res,next) => {
             return res.redirect('/');
         });
     })(req,res,next);
-})
+});
+
 router.get('/logout', isLoggedIn, (req,res) => {
     req.logout();
     req.session.destroy();
