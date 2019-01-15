@@ -4,7 +4,9 @@
 - ~~이미 솔브한 문제에 대해서 'You already solved' 문구로 flag input대체하기~~
 - ~~카테고리-챌린지 테이블 만들고, 카테고리 분류 기능~~
 - 태그-챌린지 테이블 만들고, 태그 분류 기능
-- 스코어보드
+- ~~스코어보드~~
+- ~~User view~~
+- User view 재디자인
 - CSS(ing)
 - Challenge를 DB랑 로컬에 일관성있게 업로드하는 유틸 제작
 - Solves기준 정렬기능

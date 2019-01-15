@@ -21,7 +21,7 @@ a:hover{
     font-size: 18px;
 }
 
-.chall-table{
+.rank-table,.chall-table{
     width: 100%;
 }
 
@@ -49,7 +49,7 @@ a:hover{
     font-weight: bold;
 }
 
-#category-banner{
+#page-banner{
     text-transform: uppercase;
     font-size:20px;
     color: white;

@@ -1,4 +1,4 @@
-const {Chall} = require('../models');
+const {Chall, User} = require('../models');
 
 /* use challenge id list to get challenge meta info(title, solves) */
 /* param: int cid[] */
@@ -18,6 +18,20 @@ exports.cidsToMeta = async cids => {
     }
 };
 
+exports.uidsToRankingMeta = async uids => {
+    let result = [];
+    try{
+        await Promise.all(uids.map(async(uid) => {
+            await User.find({attributes:['id','nick','solves','msg'], where: {id: parseInt(uid)}})
+            .then((data) => {
+                result.push({'id':data.id, 'nick':data.nick,'solves':data.solves,'msg':data.msg});
+            })
+        }))
+        return result;
+    } catch(error){
+        console.error(error);
+    }
+}
 /* check if exist userId-challId in table UserChall*/
 /* param: int uid , int cid                                            */
 
@@ -36,9 +50,16 @@ exports.isExistUC = async (uid,cid) => {
 
 exports.addUC= async (uid,cid) => {
     const challId = await Chall.find({attributes: ['id'], where: {id: cid}});
-    if(!exports.isExistUC(uid,cid)){
+    if(!await exports.isExistUC(uid,cid)){
         await challId.addUsers(uid);
     }
+}
+
+exports.getCinUC = async (uid) => {
+    const userId = await User.find({attributes: ['id'], where: {id:uid}});
+    let challs = await userId.getChalls();
+    let result = challs.map(chall => chall.id);
+    return result;
 }
 
 /* check if cid in table chall */

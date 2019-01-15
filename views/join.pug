@@ -13,6 +13,9 @@ block content
                 .input-group
                     label(for='join-password') Password
                     input#join-password(type='password' name='password')
+                .input-group
+                    label(for='join-message') Message
+                    input#join-message(type='text' name='msg')
                 if joinError
                     .error-message= joinError
                 button#join-btn.btn(type='submit') Join

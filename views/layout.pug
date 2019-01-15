@@ -20,7 +20,9 @@ html
                     a#pwn.btn(href='/pwn') Pwn
                     a#rev.btn(href='/rev') Rev
                 .navbar-right
+                    a#ranking.btn(href='/ranking') Ranking
                     if user && user.id
+                        a#user.btn(href='/user/'+user.nick) #{user.nick}
                         a#logout.btn(href='/auth/logout') Logout
                     else
                         a#join.btn(href='/join') Join

@@ -1,0 +1,24 @@
+extends layout
+block content
+    p#page-banner.container ranking
+    .container
+        table.rank-table
+            thead
+                tr
+                    th(style="width:10%; font-size: 18px") User
+                    th(style="width:10%; font-size: 18px") Solves
+                    th(style="width:80%; font-size: 18px") message
+            tbody
+                if !metas.length
+                    tr
+                        td
+                        td(style="font-size: 20px") No Users Yet!!
+                else
+                    for meta in metas
+                        tr
+                            td.meta 
+                                a(href='/user/'+meta.nick) #{meta.nick}
+                            td.meta #{meta.solves}
+                            td.meta #{meta.msg}
+                    
+        

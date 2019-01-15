@@ -2,7 +2,7 @@ const express = require('express');
 const sequelize = require('sequelize');
 const {isLoggedIn, isNotSolved, isChallengeExist} = require('./middlewares');
 const {addUC} = require('../utils/query')
-const {Chall} = require('../models');
+const {Chall,User} = require('../models');
 
 const router = express.Router();
 
@@ -17,6 +17,7 @@ router.post('/:id/submit',isLoggedIn, isChallengeExist, isNotSolved, async (req,
         if(correct_flag['flag'] === flag){
             await Chall.update({solves: sequelize.literal('solves+1')}, {where: {id: cid}});
             await addUC(uid,cid);
+            await User.update({solves: sequelize.literal('solves+1')}, {where: {id: uid}});
             req.flash('correct','Great!');
             return res.redirect('/chall/'+cid);
         }

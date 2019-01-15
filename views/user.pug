@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    p#page-banner.container #{nick} - #{info.msg}
+
+    .container
+        p(style="width:10%; font-size: 18px") Solves #{info.solves}
+        table.user-info
+            thead
+                tr
+                    th(style="width:10%; font-size: 18px") ID
+                    th(style="width:10%; font-size: 18px") TITLE
+                    th(style="width:10%; font-size: 18px") SOLVED TIMES
+            tbody
+                for meta in metas
+                    tr
+                        td.meta #{meta.id}
+                        td.meta
+                            a(href='/chall/'+meta.id) #{meta.title}
+                        td.meta #{meta.solves}
+                
+                
+                
