@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => (
       solves: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 0,
       },
       msg: {
         type: DataTypes.STRING(50),

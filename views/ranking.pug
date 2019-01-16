@@ -5,6 +5,7 @@ block content
         table.rank-table
             thead
                 tr
+                    th(style="width:10%; font-size: 18px") Rank
                     th(style="width:10%; font-size: 18px") User
                     th(style="width:10%; font-size: 18px") Solves
                     th(style="width:80%; font-size: 18px") message
@@ -14,8 +15,9 @@ block content
                         td
                         td(style="font-size: 20px") No Users Yet!!
                 else
-                    for meta in metas
+                    for meta, rank in metas
                         tr
+                            td.meta #{rank+1}
                             td.meta 
                                 a(href='/user/'+meta.nick) #{meta.nick}
                             td.meta #{meta.solves}

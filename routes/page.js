@@ -1,6 +1,6 @@
 const express = require('express');
-const {isNotLoggedIn, isChallengeExist} = require('./middlewares');
-const {TagChall, User} = require('../models');
+const {isNotLoggedIn, isChallengeExist, isUserExistByNick} = require('./middlewares');
+const {TagChall, User, Chall, sequelize} = require('../models');
 const showdown = require('showdown');
 const fs = require('fs');
 const {cidsToMeta, isExistUC, uidsToRankingMeta, getCinUC} = require('../utils/query');
@@ -41,8 +41,7 @@ router.get('/chall/:id', isChallengeExist, async (req,res) => {
         res.render('chall', {
             title: 'CTF-review',
             user: req.user,
-            correct: req.flash('correct'),
-            incorrect: req.flash('incorrect'),
+            msg: req.flash('msg'),
             desc: html,
             cid:cid,
             solved: req.isAuthenticated() && await isExistUC(parseInt(req.user.id), parseInt(cid)),
@@ -51,81 +50,70 @@ router.get('/chall/:id', isChallengeExist, async (req,res) => {
 });
 
 router.get('/pwn', async (req,res) => {
-        const cids = await TagChall.findAll({attributes: ['challId'], where: {tag: 'pwn'}});
-
-        if(cids.length > 0){
-            cids = cids.map(cid=> cid.challId);
-            metas = await cidsToMeta(cids);
-            res.render('challList', {
-                title: '0dayCTF',
-                user: req.user,
-                metas: metas,
-                category: 'pwn',
-            })
-        } else {
-            res.render('challList', {
-                title: '0dayCTF',
-                user: req.user,
-                metas: [],
-                category: 'pwn',
-            })
-        }
+    let cids = await TagChall.findAll({attributes: ['challId'], order: [['challId','ASC']], where: {tag: 'pwn'}});
+    
+    cids = cids.map(cid=> cid.challId);
+    metas = await cidsToMeta(cids);
+    res.render('challList', {
+        title: '0dayCTF',
+        user: req.user,
+        metas: metas,
+        category: 'pwn',
+    });
 });
 
 router.get('/rev', async (req,res) => {
-    let cids = await TagChall.findAll({attributes: ['challId'], where: {tag: 'rev'}});
+    let cids = await TagChall.findAll({attributes: ['challId'], order: [['challId','ASC']] ,where: {tag: 'rev'}});
 
-    if(cids.length > 0){
-        cids = cids.map(cid=> cid.challId);
-        metas = await cidsToMeta(cids);
-        res.render('challList', {
-            title: '0dayCTF',
-            user: req.user,
-            metas: metas,
-            category: 'rev',
-        })
-    } else {
-        res.render('challList', {
-            title: '0dayCTF',
-            user: req.user,
-            metas: [],
-            category: 'rev',
-        })
-    }
+    cids = cids.map(cid=> cid.challId);
+    metas = await cidsToMeta(cids);
+    res.render('challList', {
+        title: '0dayCTF',
+        user: req.user,
+        metas: metas,
+        category: 'rev',
+    })
 });
 
 router.get('/ranking',async (req,res) => {
     let uids = await User.findAll({attributes: ['id']});
 
-    if(uids.length > 0){
-        uids = uids.map(uid=>uid.id);
-        metas = await uidsToRankingMeta(uids);
-        res.render('ranking', {
-            title: '0dayCTF',
-            user: req.user,
-            metas: metas,
-        })
-    }
+    uids = uids.map(uid=>uid.id);
+    metas = await uidsToRankingMeta(uids);
+    res.render('ranking', {
+        title: '0dayCTF',
+        user: req.user,
+        metas: metas,
+    })
 })
 
-router.get('/user/:nick', async(req,res) => {
+router.get('/user/:nick', isUserExistByNick, async(req,res) => {
     const nick = req.params.nick;
-    let uid = await User.findOne({attributes:['id'], where: {nick:nick}});    
-    uid=uid.id;
-    const uinfo = await User.findOne({attributes:['solves','msg'],where: {nick: nick}});
-    const probIds = await getCinUC(uid);
-    const metas = await cidsToMeta(probIds);
+    const uinfo = await User.findOne({attributes:['id','solves','msg'], where: {nick: nick}});
+    let cids = await getCinUC(uinfo.id);
+    const metas = await cidsToMeta(cids);
 
-    if(uinfo){
-        res.render('user', {
-            title: '0dayCTF',
-            user: req.user,
-            nick: nick,
-            info: uinfo,
-            metas: metas,
-        })
-    } else{
-        res.status(404).send('Uesr not registered');
-    }
+    /*
+    let solves = await User.findOne({
+        attributes: [],
+        where: {id: uinfo.id}, 
+        include: [{model: Chall, attributes: ['id','title','solves']}], 
+    });
+    solves = solves.challs.map( x => {
+        return {
+            id : x.id,
+            title: x.title,
+            solves: x.solves,
+        };
+    })
+    */
+    
+    res.render('user', {
+        title: '0dayCTF',
+        user: req.user,
+        nick: nick,
+        info: uinfo,
+        metas: metas,
+    });
 })
 module.exports = router;

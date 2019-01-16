@@ -18,31 +18,24 @@ exports.cidsToMeta = async cids => {
     }
 };
 
-exports.uidsToRankingMeta = async uids => {
-    let result = [];
+/* get ranking page meta data */
+/* param : void */
+exports.uidsToRankingMeta = async () => {
     try{
-        await Promise.all(uids.map(async(uid) => {
-            await User.find({attributes:['id','nick','solves','msg'], where: {id: parseInt(uid)}})
-            .then((data) => {
-                result.push({'id':data.id, 'nick':data.nick,'solves':data.solves,'msg':data.msg});
-            })
-        }))
-        return result;
+        let rows = await User.findAll({attributes:['id','nick','solves','msg'], order:[['solves','DESC']]});
+        return rows.map( row => row.dataValues);
     } catch(error){
         console.error(error);
     }
 }
+
 /* check if exist userId-challId in table UserChall*/
 /* param: int uid , int cid                                            */
 
 exports.isExistUC = async (uid,cid) => {
     const challId  = await Chall.find({attributes: ['id'], where: {id: cid}});
     const exUser = await challId.getUsers({where: {id: uid}});
-    if(exUser.length){
-        return 1;
-    } else {
-        return 0;
-    }
+    return exUser.length? 1 : 0;
 }
 
 /* add userId-challId in table UserChall*/
@@ -55,6 +48,9 @@ exports.addUC= async (uid,cid) => {
     }
 }
 
+/* get Challenge IDs belongs to UserID */
+/* param : int uid                        */
+
 exports.getCinUC = async (uid) => {
     const userId = await User.find({attributes: ['id'], where: {id:uid}});
     let challs = await userId.getChalls();
@@ -62,13 +58,18 @@ exports.getCinUC = async (uid) => {
     return result;
 }
 
-/* check if cid in table chall */
+/* check if cid in table challs */
 /* param : int cid                   */
 
 exports.isExistC = async (cid) => {
     const check = await Chall.find({attributes: ['id'], where: {id: cid}});
-    if(check)
-        return 1;
-    else
-        return 0;
+    return check ? 1 : 0;
+}
+
+/* check if uid in table users by Nick*/
+/* param : string nick                             */
+
+exports.isExistUByNick = async (unick) => {
+    const check = await User.find({attributes: ['id'], where: {nick: unick}});
+    return check ? 1 : 0;
 }

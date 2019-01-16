@@ -1,4 +1,4 @@
-const {isExistUC, isExistC} = require('../utils/query');
+const {isExistUC, isExistC, isExistUByNick} = require('../utils/query');
 
 exports.isLoggedIn = (req,res,next) => {
     if(req.isAuthenticated()) {
@@ -16,6 +16,7 @@ exports.isNotLoggedIn = (req,res,next) => {
     }
 }
 
+/* check user already solved challenge */
 exports.isNotSolved = async (req,res,next) => {
     const cid = parseInt(req.params.id);
     const uid = parseInt(req.user.id);
@@ -31,9 +32,20 @@ exports.isNotSolved = async (req,res,next) => {
 exports.isChallengeExist = async (req,res,next) => {
     const cid = parseInt(req.params.id);
 
-    if(await isExistC(cid)){
+    if(cid && await isExistC(cid)){
         next();
     }else{
-        res.status(403).send('Problem not exist');
+        res.status(404).send('Problem not exist');
+    }
+}
+
+/* check if user exist */
+exports.isUserExistByNick = async (req,res,next) => {
+    const unick = req.params.nick;
+
+    if(await isExistUByNick(unick)){
+        next();
+    } else {
+        res.status(404).send('User not exist');
     }
 }

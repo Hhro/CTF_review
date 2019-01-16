@@ -9,7 +9,5 @@ block content
                 form.submit-flag(action='/chall/'+cid+'/submit' method='post')
                     input(type='text' name='flag' placeholder='FLAG{...}')
                     button.submit-btn(type='submit') Submit
-        if correct
-            p=correct
-        if incorrect
-            p=incorrect
+        if msg
+            p=msg

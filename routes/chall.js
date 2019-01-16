@@ -6,23 +6,23 @@ const {Chall,User} = require('../models');
 
 const router = express.Router();
 
-router.post('/:id/submit',isLoggedIn, isChallengeExist, isNotSolved, async (req,res,next) => {
+router.post('/:id/submit', isLoggedIn, isChallengeExist, isNotSolved, async (req,res,next) => {
     const cid = parseInt(req.params.id);
     const uid = parseInt(req.user.id);
     const {flag} = req.body;
     try{
-        const result = await Chall.find({attributes: ['flag'], where: {id: cid}})
-        correct_flag = result.dataValues;
+        const result = await Chall.findOne({attributes: ['flag'], where: {id: cid}})
+        const correct_flag = result.flag;
 
-        if(correct_flag['flag'] === flag){
+        if(correct_flag === flag){
             await Chall.update({solves: sequelize.literal('solves+1')}, {where: {id: cid}});
             await addUC(uid,cid);
             await User.update({solves: sequelize.literal('solves+1')}, {where: {id: uid}});
-            req.flash('correct','Great!');
+            req.flash('msg','Great!');
             return res.redirect('/chall/'+cid);
         }
         else{
-            req.flash('incorrect','Wrong flag...');
+            req.flash('msg','Wrong flag...');
             return res.redirect('/chall/'+cid);
         }
     } catch(error){
