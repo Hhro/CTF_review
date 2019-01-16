@@ -6,13 +6,13 @@ block content
             form#join-form(action='/auth/join' method='post')
                 .input-group
                     label(for='join-email') Email
-                    input#join-email(type='email' name='email')
+                    input#join-email(type='email' name='email' required)
                 .input-group
                     label(for='join-nick') Nick
-                    input#join-nick(type='text' name='nick')
+                    input#join-nick(type='text' name='nick' required)
                 .input-group
                     label(for='join-password') Password
-                    input#join-password(type='password' name='password')
+                    input#join-password(type='password' name='password' required)
                 .input-group
                     label(for='join-message') Message
                     input#join-message(type='text' name='msg')
