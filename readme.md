@@ -7,7 +7,7 @@
 - ~~스코어보드~~
 - ~~User view~~
 - Achivements
-- First Solver
+- ~~First Solver~~
 - User view 재디자인
 - Challenge를 DB랑 로컬에 일관성있게 업로드하는 유틸 제작
 - Solves Challenge기준 정렬기능
@@ -17,6 +17,7 @@
 - CSS(ing)
 - Organizing(ing)
 - attachment 주기적으로 무결성 검사
+- query.js organizing
 
 #  CheckList
 - 플래그 빠르게 반복 제출시 Race condition 발생하는지 => flag제출 interval을 둬서 해결 가능할듯

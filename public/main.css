@@ -49,6 +49,18 @@ a:hover{
     font-weight: bold;
 }
 
+.first{
+    color: red !important;
+}
+
+.second{
+    color: green !important;
+}
+
+.third{
+    color: blue !important;
+}
+
 #page-banner{
     text-transform: uppercase;
     font-size:20px;

@@ -1,4 +1,21 @@
-const {Chall, User} = require('../models');
+const squel = require('squel');
+const {Chall, User, UserChall, sequelize} = require('../models');
+
+/* use challenge id to get solvers */
+exports.cidToSolvers = async cid => {
+    try{
+            let query = squel.select({autoQuoteAliasNames: true})
+                                    .from('users')
+                                    .field('nick')
+                                    .join('UserChalls',null,'UserChalls.challId =' +cid)
+                                    .where('UserChalls.userId = id')
+                                    .order('UserChalls.createdAt')
+                                    .toString();
+            let solvers = await sequelize.query(query,{type: sequelize.QueryTypes.SELECT});
+            return solvers;
+    }
+    catch(err){}
+}
 
 /* use challenge id list to get challenge meta info(title, solves) */
 /* param: int cid[] */
@@ -7,10 +24,30 @@ exports.cidsToMeta = async cids => {
     let result = [];
     try{
         await Promise.all(cids.map(async (cid) => {
-            await Chall.find({attributes:['id','title','solves'],where:{id:parseInt(cid)}})
-            .then((data) => {
-                result.push({'id':data.id,'title':data.title,'solves': data.solves})
-            })
+            let row = await Chall.findOne({attributes:['id','title','solves'],where:{id:parseInt(cid)}});
+            row = row.dataValues;
+
+            let query = squel.select({ autoQuoteFieldNames: true })
+                                    .from('users')
+                                    .field('nick')
+                                    .join(
+                                        squel.select({ autoQuoteFieldNames: true })
+                                        .from('challs')
+                                        .field('id','cid')
+                                        .field('UserChalls.userId','uid')
+                                        .field('UserChalls.createdAt','AcreatedAt')
+                                        .join('UserChalls', 'UserChalls','UserChalls.challId = id'),
+                                        'cidUid',
+                                        'cidUid.uid = id'
+                                    )
+                                    .where('cidUid.cid = ?',cid)
+                                    .order('AcreatedAt')
+                                    .limit(1)
+                                    .toString()
+
+            let fbUser = await sequelize.query(query, {type: sequelize.QueryTypes.SELECT});
+            row.fbUser = fbUser.length ? fbUser[0].nick : null;
+            result.push(row);
         }))
         return result;
     } catch(error) {
@@ -72,4 +109,9 @@ exports.isExistC = async (cid) => {
 exports.isExistUByNick = async (unick) => {
     const check = await User.find({attributes: ['id'], where: {nick: unick}});
     return check ? 1 : 0;
+}
+
+exports.isUniqueCinUC = async(cid) => {
+    const check = await UserChall.count({where: {challId:cid}});
+    return check == 1 ? 1 : 0;
 }

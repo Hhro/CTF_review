@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => (
     sequelize.define('user', {
       email: {
         type: DataTypes.STRING(40),
-        allowNull: true,
+        allowNull: false,
         unique: true,
       },
       nick: {
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => (
       },
       password: {
         type: DataTypes.STRING(100),
-        allowNull: true,
+        allowNull: false,
       },
       solves: {
         type: DataTypes.INTEGER,

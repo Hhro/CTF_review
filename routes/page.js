@@ -3,7 +3,7 @@ const {isNotLoggedIn, isChallengeExist, isUserExistByNick} = require('./middlewa
 const {TagChall, User, Chall, sequelize} = require('../models');
 const showdown = require('showdown');
 const fs = require('fs');
-const {cidsToMeta, isExistUC, uidsToRankingMeta, getCinUC} = require('../utils/query');
+const {cidsToMeta, isExistUC, uidsToRankingMeta, getCinUC, cidToSolvers} = require('../utils/query');
 
 const router = express.Router();
 const converter = new showdown.Converter();
@@ -38,11 +38,14 @@ router.get('/chall/:id', isChallengeExist, async (req,res) => {
     const cid = req.params.id;
     await fs.readFile('challs/'+cid+'/desc.md', "utf8",async (err,md) => {
         let html = converter.makeHtml(md);
+        let solvers = await cidToSolvers(cid);
+        console.log(solvers);
         res.render('chall', {
             title: 'CTF-review',
             user: req.user,
             msg: req.flash('msg'),
             desc: html,
+            solvers: solvers,
             cid:cid,
             solved: req.isAuthenticated() && await isExistUC(parseInt(req.user.id), parseInt(cid)),
         })
@@ -93,21 +96,6 @@ router.get('/user/:nick', isUserExistByNick, async(req,res) => {
     let cids = await getCinUC(uinfo.id);
     const metas = await cidsToMeta(cids);
 
-    /*
-    let solves = await User.findOne({
-        attributes: [],
-        where: {id: uinfo.id}, 
-        include: [{model: Chall, attributes: ['id','title','solves']}], 
-    });
-    solves = solves.challs.map( x => {
-        return {
-            id : x.id,
-            title: x.title,
-            solves: x.solves,
-        };
-    })
-    */
-    
     res.render('user', {
         title: '0dayCTF',
         user: req.user,
