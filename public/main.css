@@ -21,6 +21,11 @@ a:hover{
     font-size: 18px;
 }
 
+.center {
+    display: block;
+    margin: auto auto;
+}
+
 .rank-table,.chall-table{
     width: 100%;
 }
