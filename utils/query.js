@@ -49,6 +49,14 @@ exports.cidsToMeta = async cids => {
             row.fbUser = fbUser.length ? fbUser[0].nick : null;
             result.push(row);
         }))
+        result.sort( (a,b) => {
+            if(a.id < b.id){
+                return -1;
+            }
+            else{
+                return 1;
+            }
+        })
         return result;
     } catch(error) {
         console.error(error);
