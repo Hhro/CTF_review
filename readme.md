@@ -18,6 +18,7 @@
 - Organizing(ing)
 - attachment 주기적으로 무결성 검사
 - query.js organizing
+- adminTool manageChall에서 deleteChall할 때, solve관련 기록까지 전부 삭제
 
 #  CheckList
 - 플래그 빠르게 반복 제출시 Race condition 발생하는지 => flag제출 interval을 둬서 해결 가능할듯

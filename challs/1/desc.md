@@ -1,13 +1,13 @@
-# notifico
+# juggle
 
 ---
 
-veni, vidi, notifici
+Can you help this restaurant Stack the right amount of Eggs in their ML algorithms?
 
-Notes: - only chmod, no touch - no root user, please - tar --no-same-owner -xhzf chall.tar.gz
+Guest challenge by Tethys.
 
-Challenge files
+Note that you need to send a shutdown(2) after you sent your solution. The nmap netcat will do so for you, e.g.: ncat 54.180.154.109 1337 < solution.xml
 
-[attachment1](/challs/1/attach/notifico.tar.gz)<br>
+> /usr/bin/ncat --help | grep -n 1 Ncat 7.60 ( https://nmap.org/ncat )
 
-HINT: The graph is a move graph for a certain type of chess piece.<br>
+Files here: [attachment1](/challs/2/attach/juggling.tar.gz)
