@@ -4,26 +4,19 @@ conn, cursor = sql.connect()
 rootDir = os.getcwd()[:-10]
 
 def uploadChall():
-    id = int(raw_input("chall id : "))
+    id = sql.getNextId(conn,cursor,'challs')
     title = raw_input("chall title : ")
     flag = raw_input("flag : ")
     tags = raw_input("tags(seperate by space) : ").split()
-    attachSrc = raw_input("attachment path : ")
-    descSrc = raw_input("desc.md path: ")
+    draftSrc = '../drafts/{}'.format(title)
 
     challPath = rootDir+'challs/'+str(id)
-    attachPath = challPath+'/attach/'
 
-    if sql.uploadChallQuery(conn,cursor,id,title,flag,tags) == -1 :
-        return -1
-
-    if os.path.isfile(attachSrc) and os.path.isfile(descSrc):
-        os.mkdir(challPath)
-        os.mkdir(attachPath)
-        shutil.copy(attachSrc,attachPath)
-        shutil.copy(descSrc,challPath)
+    if os.path.isdir(draftSrc):
+        shutil.copytree(draftSrc,challPath)
+        sql.uploadChallQuery(conn,cursor,id,title,flag,tags)
     else:
-        print "attachment or desc is not exist"
+        print "draft doesn't exist"
 
 def deleteChall():
     title = raw_input("chall title : ")

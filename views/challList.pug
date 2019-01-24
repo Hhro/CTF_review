@@ -11,8 +11,8 @@ block content
                 tr
                     th(style="width:10%; font-size: 18px") ID
                     th(style="width:80%; font-size: 18px") Title
-                    th(style="width:10%; font-size: 18px") FirstBlood
-                    th(style="width:10%; font-size: 18px") Solves
+                    th.centerText(style="width:10%; font-size: 18px") FirstBlood
+                    th.centerText(style="width:10%; font-size: 18px") Solves
             tbody
                 if !metas.length
                     tr
@@ -24,6 +24,6 @@ block content
                             td.meta #{meta.id}
                             td.meta
                                 a(href='/chall/'+meta.id) #{meta.title}
-                            td.meta
+                            td.meta.centerText
                                 a(href='/user/'+meta.fbUser) #{meta.fbUser}
-                            td.meta #{meta.solves}
+                            td.meta.centerText #{meta.solves}

@@ -7,7 +7,14 @@ def connect():
     cursor = conn.cursor()
     return conn, cursor
 
-def isExistQuery(conn,cursor,table, id):
+def getNextId(conn,cursor,table):
+    query = "SELECT Auto_increment FROM information_schema.tables WHERE table_name='{}';".format(table)
+    print query
+    cursor.execute(query)
+    res = cursor.fetchone()
+    return res[0]
+
+def isExistIdQuery(conn,cursor,table, id):
     query = "SELECT 1 FROM {} WHERE id = {};".format(table,id)
     print query
     cursor.execute(query)
@@ -23,10 +30,6 @@ def deleteAllChallQuery(conn,cursor):
     print query
     cursor.execute(query)
 
-    query = "DELETE FROM UserChalls"
-    print query
-    cursor.execute(query)
-
     conn.commit()
 
 def challTitleToId(conn,cursor,title):
@@ -39,15 +42,10 @@ def challTitleToId(conn,cursor,title):
 
 def uploadChallQuery(conn,cursor,id,title,flag,tags):
     print "[upload challenge]"
-    print "CHALLENGE INFO : id = {}, title= '{}', flag = '{}', tags = {}".format(id,title,flag,tags)
+    print "CHALLENGE INFO : title= '{}', flag = '{}', tags = {}".format(title,flag,tags)
 
-    if isExistQuery(conn,cursor,'challs',id):
-        print "Challenge already exist!!"
-        print "Inspection needed..."
-        return -1
-
-    query =("INSERT INTO challs(id,title,flag,createdAt,updatedAt)"
-                    " VALUES({},'{}','{}',CURRENT_TIME(),CURRENT_TIME());".format(id,title,flag))
+    query =("INSERT INTO challs(title,flag,createdAt,updatedAt)"
+                    " VALUES('{}','{}',CURRENT_TIME(),CURRENT_TIME());".format(title,flag))
     print query
     cursor.execute(query)
 
@@ -81,8 +79,8 @@ def deleteChallQuery(conn,cursor,title,id=0):
  
 def uploadManyQuery(conn,cursor,challs):
     for chall in challs:
-        uploadChallQuery(chall[0],chall[1],chall[2],chall[3])
+        uploadChallQuery(conn,cursor,chall[0],chall[1],chall[2],chall[3])
 
 def deleteManyQuery(conn,cursor,titles):
     for title in titles:
-        deleteChallQuery(title)
+        deleteChallQuery(conn,cursor,title)

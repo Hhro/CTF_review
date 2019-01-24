@@ -2,6 +2,7 @@ module.exports = (sequelize, DataTypes) => (
     sequelize.define('chall', {
         id: {
             type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
             allowNull: false,
             unique: true,

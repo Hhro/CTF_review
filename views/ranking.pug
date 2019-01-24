@@ -5,10 +5,10 @@ block content
         table.rank-table
             thead
                 tr
-                    th(style="width:10%; font-size: 18px") Rank
-                    th(style="width:10%; font-size: 18px") User
-                    th(style="width:10%; font-size: 18px") Solves
-                    th(style="width:80%; font-size: 18px") message
+                    th.centerText(style="width:10%; font-size: 18px") Rank
+                    th.centerText(style="width:15%; font-size: 18px") User
+                    th.centerText(style="width:10%; font-size: 18px") Solves
+                    th.centerText(style="width:65%; font-size: 18px") message
             tbody
                 if !metas.length
                     tr
@@ -17,10 +17,10 @@ block content
                 else
                     for meta, rank in metas
                         tr
-                            td.meta #{rank+1}
-                            td.meta 
+                            td.meta.centerText #{rank+1}
+                            td.meta.centerText 
                                 a(href='/user/'+meta.nick) #{meta.nick}
-                            td.meta #{meta.solves}
-                            td.meta #{meta.msg}
+                            td.meta.centerText #{meta.solves}
+                            td.meta.centerText #{meta.msg}
                     
         
