@@ -9,7 +9,7 @@
 - Achivements
 - ~~First Solver~~
 - User view 재디자인
-- Challenge를 DB랑 로컬에 일관성있게 업로드하는 유틸 제작
+- ~~Challenge를 DB랑 로컬에 일관성있게 업로드하는 유틸 제작~~
 - Solves Challenge기준 정렬기능
 - Writeup올리는 기능
 - flag bcrypt로 해시화해서 저장
@@ -18,6 +18,7 @@
 - Organizing(ing)
 - attachment 주기적으로 무결성 검사
 - query.js organizing
+- ~~Challenge local파일들 S3로 보내고, 링크 수정, admin_tool upload_chall수정~~
 
 #  CheckList
 - 플래그 빠르게 반복 제출시 Race condition 발생하는지 => flag제출 interval을 둬서 해결 가능할듯

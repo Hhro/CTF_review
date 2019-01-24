@@ -12,4 +12,4 @@ Beat it, win the championship, and we'll move you on to greater challenges.
 
 7zip password: infected
 
-Files here : [attachment1](/challs/2/attach/UltimateMineSweeper.7z)
+Files here : [attachment1](https://s3.ap-northeast-2.amazonaws.com/0dayctfchalls/UltimateMineSweeper.7z)
