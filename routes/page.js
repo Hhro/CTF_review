@@ -78,6 +78,19 @@ router.get('/rev', async (req,res) => {
     })
 });
 
+router.get('/web', async (req,res) => {
+    let cids = await TagChall.findAll({attributes: ['challId'], order: [['challId','ASC']] ,where: {tag: 'web'}});
+
+    cids = cids.map(cid=> cid.challId);
+    metas = await cidsToMeta(cids);
+    res.render('challList', {
+        title: '0dayCTF',
+        user: req.user,
+        metas: metas,
+        category: 'web',
+    })
+});
+
 router.get('/ranking',async (req,res) => {
     let uids = await User.findAll({attributes: ['id']});
 
