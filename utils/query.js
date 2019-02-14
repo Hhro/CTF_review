@@ -10,6 +10,7 @@ exports.cidToSolvers = async cid => {
                                     .join('UserChalls',null,'UserChalls.challId =' +cid)
                                     .where('UserChalls.userId = id')
                                     .order('UserChalls.createdAt')
+                                    .limit(5)
                                     .toString();
             let solvers = await sequelize.query(query,{type: sequelize.QueryTypes.SELECT});
             return solvers;
