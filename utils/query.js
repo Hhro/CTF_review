@@ -108,7 +108,7 @@ exports.getCinUC = async (uid) => {
 /* param : int cid                   */
 
 exports.isExistC = async (cid) => {
-    const check = await Chall.find({attributes: ['id'], where: {id: cid}});
+    const check = await Chall.findOne({attributes: ['id'], where: {id: cid}});
     return check ? 1 : 0;
 }
 

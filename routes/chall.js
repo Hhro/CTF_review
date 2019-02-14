@@ -7,8 +7,8 @@ const {Chall,User, UserChall} = require('../models');
 const router = express.Router();
 
 router.post('/:id/submit', isLoggedIn, isChallengeExist, isNotSolved, async (req,res,next) => {
-    const cid = parseInt(req.params.id);
-    const uid = parseInt(req.user.id);
+    const cid = req.params.id;
+    const uid = req.user.id;
     const {flag} = req.body;
     try{
         const result = await Chall.findOne({attributes: ['flag'], where: {id: cid}})

@@ -39,7 +39,6 @@ router.get('/chall/:id', isChallengeExist, async (req,res) => {
     await fs.readFile('challs/'+cid+'/desc.md', "utf8",async (err,md) => {
         let html = converter.makeHtml(md);
         let solvers = await cidToSolvers(cid);
-        console.log(solvers);
         res.render('chall', {
             title: 'CTF-review',
             user: req.user,
@@ -47,7 +46,7 @@ router.get('/chall/:id', isChallengeExist, async (req,res) => {
             desc: html,
             solvers: solvers,
             cid:cid,
-            solved: req.isAuthenticated() && await isExistUC(parseInt(req.user.id), parseInt(cid)),
+            solved: req.isAuthenticated() && await isExistUC(req.user.id, cid),
         })
     })
 });
